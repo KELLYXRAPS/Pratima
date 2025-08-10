@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PRATIMA - L'app ultime des cartes Pokémon</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#7C3AED',
+            secondary: '#F97316',
+            dark: '#0F172A',
+            accent: '#E11D48',
+            accentHover: '#b71c3a'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          },
+          keyframes: {
+            glitch: {
+              '0%': { clipPath: 'inset(0 0 0 0)' },
+              '20%': { clipPath: 'inset(10% 0 85% 0)' },
+              '40%': { clipPath: 'inset(20% 0 70% 0)' },
+              '60%': { clipPath: 'inset(10% 0 85% 0)' },
+              '80%': { clipPath: 'inset(0 0 0 0)' },
+              '100%': { clipPath: 'inset(0 0 0 0)' },
+            },
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            }
+          },
+          animation: {
+            glitch: 'glitch 2s infinite ease-in-out',
+            fadeInUp: 'fadeInUp 1s ease forwards'
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    /* Glitch effect */
+    .glitch {
+      position: relative;
+      color: white;
+      font-weight: 800;
+      font-size: 3.5rem;
+      letter-spacing: 0.05em;
+    }
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      clip-path: inset(0 0 0 0);
+    }
+    .glitch::before {
+      left: 2px;
+      text-shadow: -2px 0 #e11d48;
+      animation: glitch 2s infinite;
+      top: 0;
+      color: #e11d48;
+      mix-blend-mode: screen;
+    }
+    .glitch::after {
+      left: -2px;
+      text-shadow: -2px 0 #7c3aed;
+      animation: glitch 2s infinite reverse;
+      top: 0;
+      color: #7c3aed;
+      mix-blend-mode: screen;
+    }
+
+    /* Scroll to top button */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      background-color: #e11d48;
+      color: white;
+      padding: 0.75rem 1rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgb(225 29 72 / 0.6);
+      display: none;
+      transition: background-color 0.3s ease;
+      z-index: 100;
+    }
+    #scrollTopBtn:hover {
+      background-color: #b71c3a;
+    }
+  </style>
+</head>
+<body class="bg-dark font-sans text-white selection:bg-accent selection:text-white">
+
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 w-full bg-dark/90 backdrop-blur-md z-50">
+    <nav class="max-w-7xl mx-auto px-6 flex justify-between items-center h-16">
+      <a href="#" class="text-primary font-extrabold text-2xl select-none">PRATIMA</a>
+      <ul class="hidden md:flex space-x-8 text-white font-semibold">
+        <li><a href="#hero" class="hover:text-accent transition">Accueil</a></li>
+        <li><a href="#features" class="hover:text-accent transition">Fonctionnalités</a></li>
+        <li><a href="#testimonials" class="hover:text-accent transition">Témoignages</a></li>
+        <li><a href="#join" class="hover:text-accent transition">Rejoindre</a></li>
+      </ul>
+      <a href="https://discord.gg/tonserveur" target="_blank" class="hidden md:inline-block bg-accent hover:bg-accentHover transition px-4 py-2 rounded-full font-bold">Discord</a>
+
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden bg-dark/95 text-white text-center py-6 space-y-6 font-semibold md:hidden">
+      <a href="#hero" class="block hover:text-accent transition">Accueil</a>
+      <a href="#features" class="block hover:text-accent transition">Fonctionnalités</a>
+      <a href="#testimonials" class="block hover:text-accent transition">Notre But</a>
+      <a href="#join" class="block hover:text-accent transition">Rejoindre</a>
+      <a href="https://discord.gg/tonserveur" target="_blank" class="inline-block bg-accent px-6 py-2 rounded-full font-bold hover:bg-accentHover transition mt-4">Discord</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24">
+    <h1 class="glitch mb-6">PRATIMA</h1>
+    <p class="max-w-3xl text-xl md:text-2xl font-medium text-white/90 mb-6 animate-fadeInUp">L'app ultime pour scanner, gérer, vendre et suivre la valeur de tes cartes Pokémon.</p>
+    <a href="#features" class="inline-block bg-accent px-8 py-4 rounded-full font-bold text-lg hover:bg-accentHover transition animate-fadeInUp" style="animation-delay: 0.3s;">Découvrir l'app</a>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="max-w-7xl mx-auto px-6 py-20">
+    <h2 class="text-4xl font-bold text-center mb-16">Fonctionnalités de PRATIMA</h2>
+    <div class="grid gap-12 md:grid-cols-3">
+      <div class="bg-white/10 p-8 rounded-3xl shadow-lg transform transition hover:scale-105 hover:shadow-accent/50 cursor-pointer">
+        <h3 class="text-2xl font-semibold text-accent mb-4">📸 Scan intelligent</h3>
+        <p class="text-white/80 leading-relaxed">Scanne ta carte avec ton téléphone et retrouve toutes les infos automatiquement.</p>
+      </div>
+      <div class="bg-white/10 p-8 rounded-3xl shadow-lg transform transition hover:scale-105 hover:shadow-accent/50 cursor-pointer">
+        <h3 class="text-2xl font-semibold text-accent mb-4">📁 Collection virtuelle</h3>
+        <p class="text-white/80 leading-relaxed">Gère ta collection numérique, classe tes cartes et consulte leur rareté en un clic.</p>
+      </div>
+      <div class="bg-white/10 p-8 rounded-3xl shadow-lg transform transition hover:scale-105 hover:shadow-accent/50 cursor-pointer">
+        <h3 class="text-2xl font-semibold text-accent mb-4">💰 Marketplace</h3>
+        <p class="text-white/80 leading-relaxed">Échange et vends tes cartes facilement entre membres vérifiés.</p>
+      </div>
+      <div class="bg-white/10 p-8 rounded-3xl shadow-lg transform transition hover:scale-105 hover:shadow-accent/50 cursor-pointer">
+        <h3 class="text-2xl font-semibold text-accent mb-4">🤝 Échanges sécurisés</h3>
+        <p class="text-white/80 leading-relaxed">Système sécurisé d’échange et de paiement intégré à la communauté.</p>
+      </div>
+      <div class="bg-white/10 p-8 rounded-3xl shadow-lg transform transition hover:scale-105 hover:shadow-accent/50 cursor-pointer">
+        <h3 class="text-2xl font-semibold text-accent mb-4">📊 Suivi des valeurs</h3>
+        <p class="text-white/80 leading-relaxed">Graphiques et alertes en temps réel sur la valeur de tes cartes.</p>
+      </div>
+      <div class="bg-white/10 p-8 rounded-3xl shadow-lg transform transition hover:scale-105 hover:shadow-accent/50 cursor-pointer">
+        <h3 class="text-2xl font-semibold text-accent mb-4">🎮 Intégration Discord</h3>
+        <p class="text-white/80 leading-relaxed">Partage ta collection et discute avec la communauté sur notre serveur officiel.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS (slider) -->
+  <section id="testimonials" class="bg-[#1a202e] py-20 px-6">
+    <h2 class="text-4xl font-bold text-center mb-12">OBJECTIFS !</h2>
+    <div class="max-w-4xl mx-auto relative overflow-hidden">
+      <div id="testimonial-slider" class="flex transition-transform duration-700">
+        <blockquote class="min-w-full p-8 bg-white/10 rounded-2xl mr-6">
+          <p class="text-xl italic text-white/90">Rassembler une communauté autour de la collection</p>          
+        </blockquote>
+        <blockquote class="min-w-full p-8 bg-white/10 rounded-2xl mr-6">
+          <p class="text-xl italic text-white/90">Offrir un outil simple et stylé pour gérer sa collection</p>
+        </blockquote>
+        <blockquote class="min-w-full p-8 bg-white/10 rounded-2xl">
+          <p class="text-xl italic text-white/90">Rendre l’expérience fun et interactive</p>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- REJOINDRE / CALL TO ACTION -->
+  <section id="join" class="bg-accent py-20 text-center px-6">
+    <h2 class="text-4xl font-extrabold mb-6">Rejoins la communauté PRATIMA</h2>
+    <p class="mb-8 text-white/90 max-w-xl mx-auto">
+      Disponible bientôt sur iOS, Android et sur notre serveur Discord officiel. Inscris-toi pour être alerté des lancements !
+    </p>
+    <form 
+  id="joinForm" 
+  class="max-w-md mx-auto flex flex-col gap-4"
+  action="https://formspree.io/f/xyzpldkl" 
+  method="POST"
+>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Ton email"
+        required
+        class="px-4 py-3 rounded-lg text-dark font-semibold"
+      />
+      <textarea
+  name="message"
+  placeholder="Ton message"
+  required
+  class="px-4 py-3 rounded-lg text-dark font-semibold resize-none"
+></textarea>
+      <button
+        type="submit"
+        class="bg-white text-accent font-bold px-8 py-3 rounded-full hover:bg-gray-200 transition"
+      >
+        M'inscrire
+      </button>
+    </form>
+    <a href="https://discord.gg/XZYRd9ecFp" target="_blank" class="inline-block mt-8 bg-white text-accent font-bold px-10 py-4 rounded-full text-lg hover:bg-gray-200 transition">Rejoindre le Discord</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-white/70 text-center py-8 text-sm select-none">
+    <p>© 2025 PRATIMA — Tous droits réservés.</p>
+    <div class="mt-4 flex justify-center space-x-6">
+    <a href="https://www.tiktok.com/@pratima_officiel?_t=ZN-8ygDb50h6wg&_r=1" target="_blank" class="text-pink-500 text-2xl mx-2">
+  <i class="fab fa-tiktok"></i>
+</a>   
+    </div>
+  </footer>
+
+  <!-- Scroll To Top Button -->
+  <button id="scrollTopBtn" aria-label="Remonter en haut">↑</button>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+ // Testimonial slider
+const slider = document.getElementById('testimonial-slider');
+let currentIndex = 0;
+const slides = slider.children;
+const slidesCount = slides.length;
+
+function showSlide(index) {
+  const slide = slides[index];
+  const containerWidth = slider.parentElement.offsetWidth;
+  const slideWidth = slide.offsetWidth;
+  
+  // Décalage pour que le centre du slide soit au centre du conteneur
+  const offset = slide.offsetLeft - (containerWidth / 2) + (slideWidth / 2);
+
+  slider.style.transform = `translateX(-${offset}px)`;
+  slider.style.transition = 'transform 0.6s ease';
+}
+
+function nextSlide() {
+  currentIndex = (currentIndex + 1) % slidesCount;
+  showSlide(currentIndex);
+}
+
+setInterval(nextSlide, 6000); // change every 6 seconds
+
+// Centrer le premier au chargement
+showSlide(currentIndex);
+
+    // Formulaire inscription
+    const joinForm = document.getElementById('joinForm');   
+      const emailInput = joinForm.email;
+      const email = emailInput.value.trim();
+
+joinForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const email = joinForm.email.value.trim();
+  const message = joinForm.message.value.trim();
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  if (!isValidEmail(email)) {
+    alert('Merci d\'entrer une adresse email valide !');
+    return;
+  }
+  if (message.length === 0) {
+    alert('Merci de saisir un message.');
+    return;
+  }
+
+  try {
+    const response = await fetch('https://formspree.io/f/xyzpldkl', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, message })
+    });
+
+    if (response.ok) {
+      //alert(`Merci ${email} ! Ton message a bien été envoyé.`);
+      joinForm.reset();
+    } else {
+      alert('Erreur lors de l\'envoi. Essaie plus tard.');
+    }
+  } catch (error) {
+    alert('Erreur réseau. Essaie plus tard.');
+  }
+});
+
+    // Scroll to top button logic
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollTopBtn.style.display = 'block';
+      } else {
+        scrollTopBtn.style.display = 'none';
+      }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+  </script>
+</body>
+</html> 
